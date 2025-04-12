@@ -1,55 +1,55 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { UserService } from './user.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { ItemService } from './item.service';
+import { CreateItemDto } from './dto/create-item.dto';
+import { UpdateItemDto } from './dto/update-item.dto';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 
-@Controller('user')
-export class UserController {
-  constructor(private readonly userService: UserService) {}
+@Controller('item')
+export class ItemController {
+  constructor(private readonly itemService: ItemService) {}
 
   @Post('create')
-  @ApiOperation({ summary: 'Create user'})
+  @ApiOperation({ summary: 'Create item'})
   @ApiResponse({ status: 200, description:'Success', type: Boolean})
   @ApiResponse({status:400, description:'Bad Request'})
   @ApiResponse({status: 401, description: 'Unauthorized'})
-  createUser(@Body() createUserDto: CreateUserDto) {
-    return this.userService.createUser( createUserDto );
+  create(@Body() createItemDto: CreateItemDto) {
+    return this.itemService.createItem(createItemDto);
   }
 
   @Get('get-all')
-  @ApiOperation({ summary: 'Find all users'})
+  @ApiOperation({ summary: 'Find items'})
   @ApiResponse({ status: 200, description:'Success', type: Boolean})
   @ApiResponse({status:400, description:'Bad Request'})
   @ApiResponse({status: 401, description: 'Unauthorized'})
   findAll() {
-    return this.userService.findAllUser();
+    return this.itemService.findAllItem();
   }
 
   @Get('get/:id')
-  @ApiOperation({ summary: 'Find one user'})
+  @ApiOperation({ summary: 'Find one item'})
   @ApiResponse({ status: 200, description:'Success', type: Boolean})
   @ApiResponse({status:400, description:'Bad Request'})
   @ApiResponse({status: 401, description: 'Unauthorized'})
   findOne(@Param('id') id: string) {
-    return this.userService.findOneUser(+id);
+    return this.itemService.findOneItem(+id);
   }
 
   @Patch('update/:id')
-  @ApiOperation({ summary: 'Update user'})
+  @ApiOperation({ summary: 'Update Item'})
   @ApiResponse({ status: 200, description:'Success', type: Boolean})
   @ApiResponse({status:400, description:'Bad Request'})
   @ApiResponse({status: 401, description: 'Unauthorized'})
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.updateUser(+id, updateUserDto);
+  update(@Param('id') id: string, @Body() updateItemDto: UpdateItemDto) {
+    return this.itemService.updateItem(+id, updateItemDto);
   }
 
   @Delete('delete/:id')
-  @ApiOperation({ summary: 'Delete User'})
+  @ApiOperation({ summary: 'Delete this piece of s*'})
   @ApiResponse({ status: 200, description:'Success', type: Boolean})
   @ApiResponse({status:400, description:'Bad Request'})
   @ApiResponse({status: 401, description: 'Unauthorized'})
   remove(@Param('id') id: string) {
-    return this.userService.deleteUser(+id);
+    return this.itemService.deleteItem(+id);
   }
 }
